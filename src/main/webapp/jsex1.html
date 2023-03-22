@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- 
+  1. jsstudy : Dynamic Project 생성
+  2. webapp/jsex1.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 기본</title>
+</head>
+<body>
+ <h1 id="h1">hello world!</h1>
+ <h2 id='h2'></h2>
+ <script type="text/javascript">
+//  window.location.href="http://www.naver.com" //현재 페이지를 naver로 바꿔줘. window>location
+    console.log("Hello world") //콘솔출력. (주석 표현 방식이 java와 같음)
+//  console.lo("Hellow world2") /*콘솔 출력 오류*/
+    h1.innerHTML="Hello JavaScript!"
+    num=10; //변수를 선언할 때, 자료형을 안써도 됨.
+    if(num>=100) h2.innerHTML="Hellow JavaScript!"
+    else h2.innerHTML="num이 너무 작습니다."
+    num=10.0;
+    console.log(num);
+ </script>
+</body>
+</html>

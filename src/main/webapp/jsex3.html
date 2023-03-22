@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+   input {
+      text-align : right;
+   }
+</style>
+</head>
+<body>
+<h2>num1의 값을 num2태그에 복사하기</h2>
+<input type="text" id="num1">
+<input type="text" id="num2">
+<!-- onclick : 버튼 클릭시 발생되는 이벤트. -->
+<input type="button" value="복사" onclick="num2.value=num1.value">
+<h2>입력된 숫자까지의 합계 구하기</h2>
+<input type="text" id="num">
+<input type="button" value="합계" onclick="sum()"><br>
+전체 합계: <input type="text" id="tot"><br>
+짝수 합계: <input type="text" id="eventot"><br>
+홀수 합계: <input type="text" id="oddtot"><br>
+3/2 : <input type="text" id="aaa"><br>
+<script type="text/javascript">
+  function sum() { //합계 버튼 클릭 시 호출되는 함수. onclick="sum()" 에서 호출됨
+	  n= num.value;
+	  s=0;
+	  es=0;
+	  os=0;
+	  for(let i=1; i<=n; i++) {
+		  s+=i;
+		  if(i%2==0) es+=i;
+		  if(i%2!=0) os+=i;
+	  }
+	  tot.value=s;
+	  eventot.value=es;
+	  oddtot.value=os;
+  }
+  
+  aaa.value = Math.floor(3/2);
+</script>
+</body>
+</html>
