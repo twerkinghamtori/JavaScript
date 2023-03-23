@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--저축할 금액을 1~10만원까지. 6만원 이상이면, 저축을 많이 하셨습니다.를(alert) 출력
+6만원 미만이면, 좀 더 많이 하세요. 출력-->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>저축</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function getMoney() {
+      return Math.ceil(Math.random()*10);
+    }
+    if(getMoney()>=6) {
+      alert(`저축을 많이 하셨습니다. : ${getMoney()} 만원`);
+    } else {
+      alert(`좀 더 많이 하세요. : ${getMoney()} 만원`);
+    }
+  </script>
+</body>
+</html>

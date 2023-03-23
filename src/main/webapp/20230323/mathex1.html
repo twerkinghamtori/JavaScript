@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math 클래스 예제</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function getNumber() {
+      return Math.floor(Math.random()*1000)%10; //10으로 나눈 나머지니까 0~9
+    }
+    let op = ["+","-","/","*","%"];
+    function getOp() {
+      return op[Math.floor(Math.random()*op.length)];
+    }
+    str= getNumber() + getOp() + getNumber();
+    //prompt(내용, 기본값) : 값을 입력받을 수 있는 대화창.
+    ans = prompt(`정수로 입력하세요 : ${str} =` , 0);
+    //eval(str) : 문자열로된 내용을 수식형태로 변경해주는 함수. but, 보안취약.
+    res = parseInt(eval(str)); //수식의 정답.
+    if(res!=ans) {
+      document.write("<font color='red' size='5'> 틀렸습니다. </font><br>");
+      document.write("입력한 값:" + ans + "<br>");
+      document.write("정답:" + res)
+    } else {
+      document.write("<font color='blue' size='7'> 정답입니다. </font><br>");
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이미지 이동하기</title>
+  <style type="text/css">
+    .droptarget {
+      float : left;
+      min-width : 400px;
+      min-height : 35px;
+      margin : 15px;
+      padding : 10px;
+      border : 1px solid #aaaaaa;
+      overflow : auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <img src="img/apple.gif" ondragstart="dragStart(event)" ondragend="dragEnd(event)"
+      draggable="true" id="dragtarget1" width="100">  
+    <img src="img/apple.gif" ondragstart="dragStart(event)" ondragend="dragEnd(event)"
+      draggable="true" id="dragtarget2" width="100">  
+    <p ondragstart="dragStart(event)" ondragend="dragEnd(event)"
+      draggable="true" id="dragtarget3"> 이동해주세요 </p> 
+    <h1 ondragstart="dragStart(event)" ondragend="dragEnd(event)"
+      draggable="true" id="dragtarget4"> 이동해주세요</h1>
+  </div>
+  <div class="droptarget" ondrop="drop(event)" ondragover="allowDrop(event)">
+  </div>
+  <p id="demo1"></p>
+  <p id="demo2"></p>
+  
+</body>
+<script type="text/javascript">
+  function dragStart(event) {
+    //Text 이름으로 event.target.id의 이름을 정함.
+    //event.target : 실제 이벤트가 발생되는 객체.
+    //id : dragtarget1, dragtarget2, 3, 4 (draggable=true인 것들)
+    event.dataTransfer.setData("Text", event.target.id);
+    //document.querySelector : ECMA6이후에 사용 가능한 함수.
+    // => id="demo1"인 태그를 선택
+    //document.getElementById("demo1") : 이전에는 이렇게 사용함.
+    document.querySelector("#demo1").innerHTML = "이동시작합니다."
+  }
+  function dragEnd(event) {
+    document.querySelector("#demo1").innerHTML= "이동하였습니다."
+  }
+  function allowDrop(event) {
+    //event.preventDefault() : 기본이벤트 기능을 취소. 
+    //ex.drag=선택의 의미 => 여기서는 그 의미를 지우고 이미지를 옮기는데 사용
+    event.preventDefault();           
+    document.querySelector("#demo2").innerHTML="dragover 시작입니다."
+  }
+  function drop(event) {
+    event.preventDefault();
+    //"Text" = event.target.id <= dragStart에서 정해짐
+    var data = event.dataTransfer.getData("Text");
+    //data : 이동하기 위한 태그의 id속성값
+    event.target.appendChild(document.getElementById(data));
+    //event.target : 여기서는 div 태그. == 이벤트가 발생한 영역.
+    //appendChild : 해당 객체를 맨 뒤에 추가.
+    document.querySelector("#demo2").innerHTML="dragdrop 입니다."
+  }
+  /*
+  함수가 호출되는 태그가 어디인지 확인하고, 
+  이벤트가 발생하는 영역이 어디인지 체크해야함.
+
+  함수 dragStart에서 event.target은 첫번째 div 태그에서 호출되고, 
+  이벤트는 각 태그에서 발생함. (draggable) => 드래그 시작을 img, h, p등에서 하니까
+
+  함수 drop 에서 event.target은 div 태그에서 호출되고,
+  이벤트는 태그를 놓을 때 발생함. => 태그가 놓아지는 영역은 div 영역이니까
+  여기서 event.target은 div.
+  */
+</script>
+</html>

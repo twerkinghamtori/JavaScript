@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>구구단출력하기</title>
+<style type="text/css">
+  table { width:100%; border-collapse: collapse;}
+  th,td {border : 3px solid #bcbcbc; text-align: center; padding: 8px;}
+  th {background-color: #e2e2e2; color:#111111;}
+  td {background-color: #f2f2f2;}
+  caption {color:#111111; font-size: 20px; background-color: #ffffff;}
+</style>
+
+</head>
+<body>
+<input type="button" value="세로출력" onclick="print1()">
+<input type="button" value="가로출력" onclick="print2()">
+<input type="button" value="2단출력" onclick="print3()">
+<div id="gugudan"></div>
+
+<script type="text/javascript">
+  function print1() {
+    const gugu = document.querySelector("#gugudan")
+    let text=""
+    text += "<table>"
+    for(let i=2; i<=9; i++) {
+      text += "<tr><th>" + `${i}` + "단</th></td>"
+      for(let j=1; j<=9; j++) {
+        str=i*j
+        ans=eval(str);
+        text += "<tr><td>" + `${i}` + "*" + `${j}` + "=" + `${ans}`+ "</td></tr>"
+      }
+    }
+    text += "</table>"
+    gugu.innerHTML=text;
+  }
+  function print2() {
+    const gugu = document.querySelector("#gugudan")
+    let text=""
+    text += "<table>"
+    text += "<tr>"
+    for(let i=2; i<=9; i++) {
+      text += "<th>" + `${i}` + "단</th>"
+    }
+    text+="</tr>"
+    for(let i=1; i<=9; i++) {
+      text+="<tr>"
+      for(let j=2; j<=9; j++) {
+        str=i*j
+        ans=eval(str);
+        text += "<td>" + `${j}` + "*" + `${i}` + "=" + `${ans}`+ "</td>"
+      }
+      text+="</tr>"
+    }
+    text += "</table>"
+    gugu.innerHTML=text;
+  }
+  function print3() {
+    const gugu = document.querySelector("#gugudan")
+    let text=""
+    text += "<table>"
+    text += "<tr>"
+    for(let i=2; i<=5; i++) {
+      text += "<th>" + `${i}` + "단</th>"
+    }
+    text+="</tr>"
+    for(let i=1; i<=9; i++) {
+      text+="<tr>"
+      for(let j=2; j<=5; j++) {
+        str=i*j
+        ans=eval(str);
+        text += "<td>" + `${j}` + "*" + `${i}` + "=" + `${ans}`+ "</td>"
+      }
+      text+="</tr>"
+    }
+    for(let i=6; i<=9; i++) {
+      text += "<th>" + `${i}` + "단</th>"
+    }
+    for(let i=1; i<=9; i++) {
+      text+="<tr>"
+      for(let j=6; j<=9; j++) {
+        str=i*j
+        ans=eval(str);
+        text += "<td>" + `${j}` + "*" + `${i}` + "=" + `${ans}`+ "</td>"
+      }
+      text+="</tr>"
+    }
+    text += "</table>"
+    gugu.innerHTML=text;
+  }
+</script>
+</body>
+</html>

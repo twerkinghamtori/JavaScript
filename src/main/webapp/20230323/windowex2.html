@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>open 함수</title>
+</head>
+<body>
+  <!--href 속성 : 다른 페이지의 url 값
+        javascript: => 뒷부분은 javascript의 영역으로 처리-->
+  <a href="javascript:open_win()">새창열기</a> <!--'새창열기'를 클릭하면 js의 open_win()함수를 호출-->
+  <a href="javascript:open_win2('windowex1.html')">windowex1.html 열기</a>
+  <a href="javascript:close_win()">새창닫기</a>
+  <form name="f">
+    아 이 디 : <input type="text" name="id" id="id"><br>
+    비밀번호 : <input type="password" name="pw" id="pw"><br>
+  </form>
+  <script type="text/javascript">
+    let nw;
+    function open_win() {
+      /*
+      open("새창에 띄워줄 페이지", 새 창의 이름, 옵션)
+      옵션 : width(가로길이), height(세로길이), menubar(크롬의 메뉴바(즐겨찾기 등),
+            top(창이 뜰 위치), left(창이 뜰 위치))*/
+      nw = open("", "open", "width=600, height=200, menubar=no, top=200, left=200");
+      //nw : 새창의 window 객체
+      nw.document.write('새로운 윈도우 입니다.');
+      nw.document.write("windowex2.html 페이지의 open 함수로 열린 창입니다.<br>")
+    }
+    function close_win() {
+      nw.close(); //nw가 관리하는 새창을 닫기.
+      self.close(); //현재창 닫기. (self.)는 생략이 가능.
+    }
+    function open_win2(url) {
+      nw = open(url, "open", "width=600, height=200, menubar=no, top=200, left=200");
+      //nw.onload 이벤트 사용
+      nw.onload=function() {
+        i = f.id.value;
+        p = f.pw.value;
+        nw.f.echo.value = i +"," + p;
+        nw.document.f.echo.value.write("f.echo.value");
+      }
+    }
+  </script>
+</body>
+</html>

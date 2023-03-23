@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- 저축할 금액을 랜덤하게 1~10만원까지 할려고 함.
+  6만원이상이면  '저축을 많이 하셨습니다. 잘하셨습니다.' 화면에 메세지를 출력하고
+  6만원 미만이면 '좀더 많이 하세요' 화면에 메세지를 출력하기
+   전체 저축금액이 100만원이 넘으면 저축이 만료 되었습니다. 메세지를 화면에 출력하기 
+   
+   [화면 결과]
+1. 저축을 많이 하셨습니다. 잘하셨습니다.:8만원, 잔액:8
+2. 저축을 많이 하셨습니다. 잘하셨습니다.:10만원, 잔액:18
+3. 좀더 많이 하세요.:2만원, 잔액:20
+4. 좀더 많이 하세요.:2만원, 잔액:22
+5. 좀더 많이 하세요.:2만원, 잔액:24
+6. 좀더 많이 하세요.:5만원, 잔액:29
+7. 저축을 많이 하셨습니다. 잘하셨습니다.:8만원, 잔액:37
+.....
+20. 저축을 많이 하셨습니다. 잘하셨습니다.:7만원, 잔액:104
+저축이 만료되었습니다. 잔액:104
+
+innerHTML 어떻게 쓰는거..?
+ -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="text/javascript">
+    let sum=0;
+    let cnt=0;
+    while(sum<100) {
+      money = Math.ceil(Math.random()*10);
+      sum += money;
+      cnt++;
+      if(money>=6) {
+        document.write(cnt + ". 저축을 많이 하셨습니다. 잘하셨습니다. : " + money + "만원, 잔액: " + sum + "</h5><br>")
+      } 
+      else document.write(cnt + ". 좀 더 많이 하세요. : " + money + "만원, 잔액: " + sum + "</h5><br>")
+    }
+    document.write("<br>저축이 만료되었습니다. 잔액 : " + sum )
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

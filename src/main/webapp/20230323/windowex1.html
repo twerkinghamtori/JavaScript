@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>window 객체의 3가지 메세지 창</title>
+</head>
+<body>
+  <form name="f">
+    <!-- this.form : 내가 속한 form 객체, 여기서는 name=f인 form 객체
+    this.form.echo : form 객체의 하위 태그 중 name=echo인 객체-->
+    <input type="radio" name="dbox"
+    onclick="this.form.echo.value=alert('alert 메세지창 호출')"">
+    <!--onclick 뒤에 있는 ".."이 부분은 문자열이 아니라 js파트. -->
+    alert 메세지창 호출<br> <!--alert : undefined (리턴값이 없음)-->
+    <input type="radio" name="dbox" 
+    onclick="this.form.echo.value=confirm('confirm 메세지창 호출')">
+    confirm 메세지창 호출<br> <!--confirm : true||false (리턴값 boolean)-->
+    <input type="radio" name="dbox" 
+    onclick="this.form.echo.value=prompt('prompt 메세지창 호출')">
+    prompt 메세지창 호출<br> <!--prompt : 입력값을 리턴-->
+    <input type="text" name="echo">
+    <hr>
+    <script>
+      i=2;
+      //eval : 수식을 계산해줌 (문자열, 숫자 상관 없음)
+      document.write("<b>eval(3+4*(5-i))</b>="+eval("3+4*(5-i)") + "<br>");
+      //isNaN(is Not a Number) : 숫자가 아니니? 숫자가 아니면 true, 숫자면 false 
+      document.write("<b>isNaN('한국')</b>="+isNaN('한국')+ "<br>");
+      document.write("<b>isNaN('123')</b>="+isNaN('123')+ "<br>");
+      //parseInt : 실수, 문자열을 정수형으로 변경
+      document.write("<b>parseInt('10')</b>="+parseInt('10')+ "<br>");
+      document.write("<b>parseInt('12',8)</b>="+parseInt('12',8)+ "<br>");
+      document.write("<b>parseInt('FF', 16)</b>="+parseInt('FF',16)+ "<br>");
+    </script>
+  </form>
+</body>
+</html>
