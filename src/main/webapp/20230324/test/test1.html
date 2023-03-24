@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>달력 출력하기</title>
+  <style type="text/css">
+    .mon {border-collapse: collapse;}
+    th.mon,td.mon {border : 3px solid #bcbcbc; 
+        text-align: center; padding: 8px;}
+    th.mon {background-color: #e2e2e2; color:#111111;}
+    td.mon {background-color: #f2f2f2;}
+    caption {color:#111111; font-size: 20px; 
+          background-color: #ffffff;}
+    .text-red { color : red;}
+    .text-blue { color : blue;} 
+    </style>
+</head>
+<body>
+  <select id="y">
+    <option>2017</option><option>2018</option><option>2019</option>
+    <option selected="selected">2020</option><option>2021</option><option>2022</option>
+    <option>2023</option><option>2024</option>
+  </select>
+  <input type="button" value="달력보기" onclick="show_cal()">
+<br><span id="cal"></span>
+<script type="text/javascript">
+  function show_cal() {
+    text="";
+    text+="<table id='outline'><caption>" + y.value + "년</caption>"
+    for(let a=1; a<=12; a++) {      
+      if(a%4==1) text+="<tr><td>"
+      else text+="<td>"      
+      text+="<table class='mon'><caption>" + a + "월</caption>"
+      text+="<tr>"
+      text+="<th class='mon'>일</th>"
+      text+="<th class='mon'>월</th>"
+      text+="<th class='mon'>화</th>"
+      text+="<th class='mon'>수</th>"
+      text+="<th class='mon'>목</th>"
+      text+="<th class='mon'>금</th>"
+      text+="<th class='mon'>토</th>"
+      text+="</tr>"
+      first = new Date(y.value, a-1, 1);
+      firstweek = first.getDay();
+      last = new Date(y.value, a, 0);
+      lastd = last.getDate();
+      f=1;
+        for(let i=0; i<=5; i++) {
+          if(f>lastd) break;
+          text+="<tr>"
+          for(let j=0; j<=6; j++) {
+            if(i==0 && j<firstweek) {
+            text+="<td class='mon'></td>";
+            continue;
+            }
+            if(f>lastd) {
+            text+="<td class='mon'></td>";
+            continue;
+            }
+            else if(j==0) text+="<td class='text-red mon'>" +f + "</td>" 
+            else if(j==6) text+="<td class='text-blue mon'>" +f + "</td>"
+            else text+="<td class='mon'>" +f + "</td>" 
+            f++; 
+          }
+          text+="</tr>"
+        }
+        if(a%4==0) text+="</tr></td>"
+        else text+="</td>" 
+        text+="</table>"
+    }    
+    text+="</table>"
+    document.querySelector("#cal").innerHTML=text;
+  }
+</script>
+</body>
+</html>
