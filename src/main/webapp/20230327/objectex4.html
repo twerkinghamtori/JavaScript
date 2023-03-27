@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function CheckWeight(name, height, weight) {
+      this.username = name;
+      this.userheight = height;
+      this.userweight = weight;
+      //(키-100)*0.9 : 정상몸무게
+      this.minWieght //정상몸무게 범위 시작 (정상몸무게-5)
+      this.maxWieght //정상몸무게 범위 끝 (정상몸무게+5)
+      this.getResult = function() {
+        this.minWeight = (this.userheight-100)*0.9 -5;
+        this.maxWeight = (this.userheight-100)*0.9+5;
+        if(this.userweight < this.minWeight) return "저체중입니다.";
+        else if(this.userweight > this.maxWeight) return "과체중입니다.";
+        else return "정상몸무게 입니다.";
+      }
+    }
+    let jang = new CheckWeight("장보리",168,62);
+    let park = new CheckWeight("박달재",180,82);
+    document.write(jang + "<br>"); //[object Object]
+    document.write(park + "<br>");
+    console.log(jang);
+    console.log(park);
+    document.write(jang.getResult() + "<br>");
+    document.write(park.getResult() + "<br>");
+
+  </script>
+</body>
+</html>

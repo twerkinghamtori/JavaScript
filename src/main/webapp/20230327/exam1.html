@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이미지 잡기 게임</title>
+  <script type="text/javascript">
+    function nextRandomInteger(limit) {
+      return Math.round(Math.random()*limit);
+    }
+    function randomSpeed(maxSpeed) {
+      return Math.random() * maxSpeed - Math.random()*maxSpeed;
+    }
+    let canvasWidth=700;
+    let canvasHeight = 500;
+    let total = 10;
+    function MovingText() { 
+      this.x = nextRandomInteger(canvasWidth); 
+      this.y = nextRandomInteger(canvasHeight);
+      this.vX = randomSpeed(2);
+      this.vY = randomSpeed(2);
+      this.body = document.createElement("img");
+      this.body.src = "img/apple.gif";
+      this.body.style.width="35px";
+      this.body.style.height="35px";
+      this.body.style.position = "absolute";
+      let text = this.body;
+      this.body.onclick = function() { 
+        --total;
+        alert("남은 문자 수 : " + total);
+        text.src = "img/strawberry.gif"
+      }
+      document.body.appendChild(this.body);
+    }
+    MovingText.prototype.move = function() {
+      let pos = this.body.src.indexOf("strawberry.gif");
+      if(pos>0) {
+        return; 
+      }
+      if(this.x < 0 || this.x > canvasWidth) { 
+        this.vX *= -1; 
+      }
+      if(this.y < 0 || this.y > canvasHeight) {
+        this.vY *= -1;
+      }
+      this.x += this.vX; 
+      this.y += this.vY;
+      this.body.style.left = this.x + "px";
+      this.body.style.top = this.y + "px"; 
+    }
+    window.onload = function() { 
+      let movingTexts = []; 
+      for(let i=0; i<10; i++) {
+        movingTexts.push(new MovingText());
+      }
+      let game = setInterval(function() {
+        for(let i in movingTexts) {
+          if(total < 4) {
+            alert("게임종료");
+            clearInterval(game); 
+            return;
+          }
+          movingTexts[i].move();
+        }
+      }, 1000/60 ); 
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+</head>
+<body>
+  
+  <h5>숫자야구 게임~~</h5>
+  <p>세자리 숫자를 입력해주세요.</p><br>
+  <input type="text" id="num"><br>
+  <input type="submit" value="정답" onclick="answer()"><br>
+  <div id="sb"></div>
+
+  <script type="text/javascript">
+    function answer() {
+      let list = [];
+      var set = new Set();
+      for(let i=0; i<=10; i++) {
+        rand = (Math.floor(Math.random()*9)+1);
+        list.push(rand);
+        if(list[i]==list[i+1]) {
+          rand=(Math.floor(Math.random()*9)+1);
+          list.push(rand);
+        }
+        if(list.size==4) break;
+      }
+      let scnt=0;
+      let bcnt=0;
+      while(scnt<4) {        
+        let n = num.value;
+        let me = [];
+      for(let i=3; i>=0; i--) {
+        me[i] = n%10;
+        n/=10;
+      }
+        for(let i=0; i<4; i++) {
+				  if(list[i]==me[i]) { 
+					  scnt++; continue; 
+				  }
+				for(let j=0; j<4; j++) {
+					if(list[i] == me[j]) { 
+						bcnt++;
+					}
+				}        
+        
+        if(scnt==4)  {
+          document.querySelector("#sb").innerHTML("축하드립니다. 정답입니다.")
+          break;
+        }
+        else {
+          document.querySelector("#sb").innerHTML(scnt + "스트라이크, " +bcnt + "볼")
+        }
+        scnt=0;
+        bcnt=0;
+			}
+    }
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript">
+    function Person(name, blog) {
+      this.name = name;
+      this.blog = blog;
+      this.getName = function() {
+        return this.name;
+      }
+      this.getBlog = function() {
+        return this.blog;
+      }
+    }
+    let kim = new Person("김삿갓","kimsg.tistory.com"); 
+    let lee = new Person("이몽룡","leemy.tistory.com");
+    document.write(kim.getName(),"<br>")  //김삿갓
+    document.write(kim.getBlog(),"<br>")  //kimsg.tistory.com
+    document.write(lee.getName(),"<br>")  //이몽룡
+    document.write(lee.getBlog(),"<br>")  //leemy.tistory.com
+  </script>
+</body>
+</html>

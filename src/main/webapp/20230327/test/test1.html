@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript">
+    Number.prototype.printComma = function() {
+      let arr = [];
+      let str = this.toString();
+      if(str.length<=3) return str;
+      else {
+        let mod = Math.floor(str.length%3);
+        for(let i=0; i<Math.ceil(str.length/3); i++) {          
+          if(i==0) {
+            arr.push(str.substring(0,mod));
+            arr.push(",");
+          } else if(i==Math.ceil(str.length/3)-1) {
+            arr.push(str.substring(mod, mod+3));
+          }
+          else {
+            arr.push(str.substring(mod, mod+3));
+            arr.push(","); 
+            mod+=3;
+          }                        
+        }
+      }
+      let ans="";
+      for(let i=0; i<arr.length; i++) {
+        ans+=arr[i];
+      }
+      return ans;
+    }
+    document.write((1234567890).printComma(),"<br>") //1,234,567,890
+    document.write((123).printComma(),"<br>") //123
+  </script>
+</body>
+</html>

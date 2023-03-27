@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+  1. 자바스크립트에서 객체 생성하기
+  2. 태그 위치 지정 : js에서 css 설정하는 것.
+  3. 이벤트 처리 : 문자 클릭했을 때, 이벤트 처리
+  4. setInterval() : 지정된 시간 간격으로 계속 메서드 호출
+    clearInterval() : setInterval() 함수를 해제
+-->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글자잡기 게임</title>
+  <script type="text/javascript">
+    function nextRandomInteger(limit) {
+      return Math.round(Math.random()*limit);
+    }
+    function randomSpeed(maxSpeed) {
+      return Math.random() * maxSpeed - Math.random()*maxSpeed; //-2~2
+    }
+    let canvasWidth=700;
+    let canvasHeight = 500;
+    let total = 10;
+    function MovingText() { //클래스. 사용자가 정의한 js객체. => new MovingText()로 객체 생성.
+      this.x = nextRandomInteger(canvasWidth); //this.x => 멤버변수. 
+      this.y = nextRandomInteger(canvasHeight);
+      this.vX = randomSpeed(2);
+      this.vY = randomSpeed(2);
+      //document : body부분을 관장함 => Element=태그,
+      //body 부분에 h1이라는 태그 하나를 생성하라는 뜻.
+      //<h1></h1>
+      this.body = document.createElement("h1");
+      //<h1>A</h1>
+      this.body.innerHTML = "A";
+      //setAttribute() : style 속성을 설정.(inline 방식)
+      //<h1 style='background-color : white'>A</h1>
+      this.body.setAttribute("style", "background-color : white");
+      //this.body.style : h1태그의 style 속성. (내부 css방식?)
+      //<h1 style='background-color : white; position : absolute;'>A</h1>
+      this.body.style.position = "absolute"; //this.body의 위치 형태를 절대위치로 설정.
+      let text = this.body;
+      //<h1 style='background-color : white; position : absolute;' onclick = "">A</h1>
+      this.body.onclick = function() { //이벤트 등록
+        //이벤트 소스 : event target, 이벤트 발생 객체.
+        //onclick : 리스너 : 이벤트 관리 프로세스(클릭이 되었니?)
+        //function() : 핸들러 : 이벤트 발생 시 호출되는 함수
+        --total;
+        alert("남은 문자 수 : " + total);
+        text.innerHTML = "B";
+      }
+      //document.body : <body></body>
+      //appendChild(this.body) : body 태그에 h1 태그를 추가.
+      document.body.appendChild(this.body);
+    }
+    //MovingText 클래스에 move 멤버 함수를 정의하는 부분.
+    MovingText.prototype.move = function() {
+      //클릭되면 B가 되니까. if(클릭되었다면), return => 움직이지 않겠음(move 함수 실행x)
+      if(this.body.innerHTML == 'B') return; 
+      if(this.x < 0 || this.x > canvasWidth) { //canvas 범위 벗어나면
+        this.vX *= -1; //반대방향으로 움직이도록
+      }
+      if(this.y < 0 || this.y > canvasHeight) {
+        this.vY *= -1;
+      }
+      this.x += this.vX; //여기서 움직임을 관장함. 좌표라고 생각하면 될듯. vX 음수면 왼쪽으로, 양수면 오른쪽으로
+      this.y += this.vY;
+      //<h1 style='background-color : white; position : absolute; left : this.x px;'>A</h1>
+      this.body.style.left = this.x + "px"; //가로위치(왼쪽에서 this.x만큼 떨어져 있는 거)
+      this.body.style.top = this.y + "px"; 
+    }
+    //window.onload(리스너) : window 객체들이 load될 때(모두 준비가 되었을 때)
+    window.onload = function() { //function() : 핸들러
+      let movingTexts = []; //배열 생성.(list)
+      for(let i=0; i<10; i++) {
+        movingTexts.push(new MovingText());
+        //MovingText객체를 생성 => (0~9까지) 배열에 집어넣음.(push)
+      }
+      //setInterval(함수, 밀리초) : 밀리초마다 함수를 실행.
+      let game = setInterval(function() {
+        for(let i in movingTexts) { //in => i= index //of=>요소 내용
+          if(total < 4) {
+            alert("게임종료");
+            //clearInterval(game) : game의 setInterval 함수를 해제
+            clearInterval(game); 
+            return;
+          }
+          movingTexts[i].move();
+        }
+      }, 1000/60 ); //1초에 60번, 함수 실행.
+    }
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
