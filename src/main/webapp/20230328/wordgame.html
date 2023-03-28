@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!-- webapp/20230328/numberbaseball.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>숫자 야구 게임</title>
+<style type="text/css">
+  /*여기서 *는 모든 태그*/
+   * {text-align: center; margin: 0px; padding: 0px;  }
+</style> 
+<script>
+let trycount = 0;
+let nums = new Array(10);
+let answer = new Array(4) 
+let inputarr = new Array(4); 
+for(let i=0;i<nums.length;i++) {
+	nums[i] = i; //0~9사이의 값을 nums 배열에 추가.
+}
+for(let a=0;a < 10000;a++) { //nums 섞기
+	  let ran = Math.floor(Math.random()*nums.length);
+	  let tmp = nums[0];
+	  nums[0] = nums[ran];
+	  nums[ran] = tmp;
+}
+for(let i=0;i<answer.length;i++) {
+	answer[i] = nums[i];
+}
+console.log("answer="+answer)
+window.onload = function(){
+	for(let i=0;i<4;i++) {
+	   let img = document.createElement("img")
+	   img.setAttribute("width",100)
+	   img.setAttribute("height",100)
+	   img.setAttribute("border",1)
+	   document.querySelector("#card").append(img);
+	}
+	document.querySelector("#inbtn").onclick = function(){
+		let v_userNum = document.querySelector("#userNum").value
+
+		if (v_userNum == "") {
+	  	   alert('숫자를 입력해주세요');
+	  	   document.querySelector("#userNum").focus();
+  	       return;
+	  	}
+		if (isNaN(v_userNum)) {
+             alert('숫자타입으로 입력해주세요');
+  	    	 document.querySelector("#userNum").focus();
+	    }
+	    if (v_userNum.length != 4) { 
+	         alert('4자리 숫자로 입력해주세요');
+  	    	 document.querySelector("#userNum").focus();
+	         return;
+	    }
+ 	    inputarr = v_userNum.split("");
+	  	for(let v1 in inputarr) {
+	  	    let cc = 0;
+	  	    for(let v2 in inputarr) {
+	  	    	if(inputarr[v1] == inputarr[v2]) cc++;
+	  	    }
+	  	    if (cc > 1) {
+	  	     alert('중복된 숫자를 입력할 수 없습니다.');
+	  	     document.querySelector("#userNum").focus();
+	  		 return;
+	  		}
+	  	 }        
+	     matchingNum(v_userNum);
+	     document.querySelector("#userNum").value=""
+	}
+    //onkeyup : key event => 키보드에서 키를 누를 때.
+    /* keydown : 키가 내려갈때 : 누를때
+       keypress : 키를 누르고 있을 떄. deprecated 됨. 사용x
+       keyup : 눌렀다가 뗄때
+
+       <key code>
+       왼쪽 방향키 : 37
+       오른쪽 방향기 : 39
+       엔터 : 13 
+    */
+    document.querySelector("#userNum").onkeyup=function(event){ //엔터쳐도 값들어가게
+	  if (event.keyCode == 13) { 
+		  document.querySelector("#inbtn").onclick(); //입력버튼의 click 이벤트 발생시킴. (=입력버튼의 event handler(함수) 호출)
+	  }
+    }
+}
+
+function matchingNum(usernum) {
+    let strike = 0;
+    let ball = 0;
+    let inputarr = usernum.split("");
+    for (let i=0;i < 4 ;i++) {
+    	for(let j=0;j < 4 ;j++) {
+          if (answer[j] == inputarr[i]) {
+        	if(i == j)   strike++;
+        	else ball++;
+          }
+    	}
+    }
+    
+	console.log("strike="+strike,",ball="+ball)
+
+    if (strike == 4) {
+		let wrap = document.getElementById("wrap");
+	   let h1_1 = 	
+      document.querySelector("#result").innerHTML 
+                                 += ("<h1>축하합니다. 정답입니다.</h1>");
+	   document.querySelector("#wrap").innerHTML += "<button>다시시작</button>"
+
+	   document.querySelector("button").onclick =function(){
+    	   location.reload(); //location(현재 실행페이지).reload() => 현재 페이지 처음부터 재시작
+       }
+       cimgs = document.getElementsByTagName("img")
+       for (let i in cimgs) {
+    	   cimgs[i].src = "./nums/num" + answer[i] + ".jpg"
+       }
+    } else {
+       strike += "S ";
+       ball += "B";
+       let result_div = document.querySelector("#result")
+       result_div.innerHTML += ++trycount  + "번째 도전 : " + strike + ball 
+	         + ", 유저입력값 : " + usernum+"<br>"
+	         
+    }
+}
+</script>
+</head>
+<body>
+<h3> 숫자야구 </h3>
+<div id="wrap">
+	<div id="card"></div>
+	<div id="left">
+	  <input type="text" id="userNum" >
+	  <input type="button" value="입력"  id="inbtn">
+	</div>
+	<div id="result"></div>
+</div>
+</body>
+</html>

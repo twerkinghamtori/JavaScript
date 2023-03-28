@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--  webapp/20230328/wordgame.html -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>타자연습</title>
+<style type="text/css">
+div {	position: absolute;}
+#main {
+	width: 450px;    	    height: 400px;
+	border: 1px solid blue;	overflow: hidden;
+}
+input {
+	position: absolute;	top: 410px;
+	left: 10px;   	size: 200px;
+}
+#scorearea {
+	position: absolute;	top: 410px;
+	left: 210px;   	
+	border : 1px solid #333333;
+	width : 200px; height:20px;
+}
+#score {
+	position: relative;	left: 30px;   
+	display: inline;	
+}
+</style>
+<script>
+ let datas = [
+   ["태연","유리","윤아","효연","수영","서현", "티파니", "써니", "제시카"],
+   ["정국","뷔","지민","슈가","진","알앰","제이홉"],
+   ["미나","나연","다현","지효","모모","채영","쯔위","사나","정연"] ]
+ let cnt=0;
+ let words=[];
+ let colors=['red', 'blue', 'green', 'grey', 'orange', 'black']
+ let canvasWidth = 400
+ let canvasHeight = 400
+ window.onload=function() {
+	 cm = setInterval(createMode, 2000); //2초에 한번씩 글자 생성
+	 mm = setInterval(moveMode, 500);  //0.5초에 한번씩 글자 이동.
+ }
+ function MovingChar() {
+     this.h3 = document.createElement('h3');
+     this.h3.innerHTML = randomData();
+     this.x = random(canvasWidth); //떨어지기 시작하는 x좌표 선택.
+     this.y = 0;
+     this.vY = 10; //떨어지는 속도
+     this.h3.style.position = 'absolute';
+     this.h3.style.left = this.x + 'px';
+     this.h3.style.color = colors[random(5)];
+     document.querySelector("#main").appendChild(this.h3);
+ }
+ MovingChar.prototype.move = function () {
+	 if ((this.x+this.h3.innerHTML.length)>canvasWidth) { //글자가 잘리는 경우 방지
+		 this.x = canvasWidth-(this.h3.innerHTML.length+1);
+	 }
+     this.y += this.vY; //Y좌표가 속도에 맞게 떨어짐.
+     this.h3.style.top = this.y + 'px';
+ };
+ MovingChar.prototype.remove = function () {
+	 document.querySelector("#main").removeChild(this.h3); //박스에서 글자 사라지게
+ };
+ function createMode() {
+     words.push(new MovingChar());
+ }
+ function moveMode() {
+	 for (let i in words) {
+	   words[i].move();
+	   if (words[i].y>=canvasHeight) { //프로그램 종료 조건
+	    document.querySelector("#main").removeChild(words[i].h3);
+		delete (words[i])
+	    clearInterval(cm);
+		clearInterval(mm);
+		for(let j in words) {
+		   words[j].h3.style.color = "gray"
+		}
+	    alert("게임 종료")
+	  }
+	 } 
+ }
+ function random(num) {
+	 let num1 = Math.random()* num;
+	 num1 = parseInt(num1);
+	 return num1;
+ }
+ function randomData() {
+	 let num1 = Math.random()* 3;
+	 num1 = parseInt(num1);
+	 let num2 = Math.random()* datas[num1].length;
+	 num2 = parseInt(num2);
+	 return datas[num1][num2];
+ } 
+ function deleteMode(str) { //this.value = input의 value
+	 for (let i in words) {
+		 words[i].move();
+		 if (words[i].h3.innerHTML == str) { 
+	        document.querySelector("#main").removeChild(words[i].h3);
+			 delete (words[i])
+			 score.innerHTML=++cnt
+		 }
+	 }
+	  document.querySelector("#input").value=""; //input의 value값을 지움.
+	  document.querySelector("#input").focus(); //? 위치고정?
+ } 
+ </script></head>
+<body><div id="main"></div>
+<div style="width: 400px">
+<input type="text" onchange="deleteMode(this.value)" id="input">
+<div id="scorearea">점수:<div id="score"></div></div>
+	</div></body></html>>
