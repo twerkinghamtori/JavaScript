@@ -1,0 +1,21 @@
+@charset "UTF-8";
+#main {
+	width: 450px;    	    height: 400px;
+	border: 1px solid blue;	overflow: hidden;
+}
+#character {
+	width : 450px;  height: 35px;
+	overflow : hidden;  
+	background-color : black;
+}
+#ch {
+	width : 35px; height : 35px;
+	position : absolute;
+	left : 225;
+}
+#start {
+	width : 100px; height : 50px;
+	position: fixed;
+	left : 200px;
+	top : 420px;
+}
